@@ -2,10 +2,7 @@
 """
 Deletion-resilient hypermedia pagination
 """
-
 import csv
-import math
-from pprint import pprint
 from typing import Any, Dict, List, Set
 
 
@@ -69,7 +66,8 @@ class Server:
             next_index += len(deleted_indices)
 
             for i in range(current_index, next_index):
-                if i not in deleted_indices and i in self.__indexed_dataset:
+                if i not in deleted_indices and \
+                    i in self.__indexed_dataset:
                     data.append(self.__indexed_dataset[i])
 
             return {
