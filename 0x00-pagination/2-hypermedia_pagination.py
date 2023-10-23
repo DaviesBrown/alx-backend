@@ -14,6 +14,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """init"""
         self.__dataset = None
 
     def dataset(self) -> List[List]:
@@ -28,9 +29,11 @@ class Server:
     
     @property
     def datasets(self):
+        """get all dataset"""
         return self.dataset()
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """get page from dataset"""
         assert type(page) == int and page > 0
         assert type(page_size) == int and page_size > 0
         (start, end) = index_range(page, page_size)
@@ -41,6 +44,7 @@ class Server:
     
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
+        """get heyper pagination"""
         data = self.get_page(page, page_size)
         total_pages = math.ceil(len(self.datasets) / page_size)  
         page_info = {
