@@ -2,8 +2,6 @@
 """
 helper function
 """
-
-
 from typing import Tuple
 
 
