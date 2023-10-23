@@ -3,7 +3,7 @@
 Deletion-resilient hypermedia pagination
 """
 import csv
-from typing import Any, Dict, List, Set
+from typing import Dict, List, Set
 
 
 class Server:
@@ -45,7 +45,7 @@ class Server:
     
     def get_hyper_index(self,
                         index: int = None,
-                        page_size: int = 10) -> Dict[str, Any]:
+                        page_size: int = 10) -> Dict:
         """
         if between two queries, certain rows are removed from
         the dataset, the user does not miss items from dataset
@@ -56,7 +56,7 @@ class Server:
             current_index = index
             next_index = current_index + page_size
 
-            deleted_indices: Set[int] = set()
+            deleted_indices: Set = set()
             data = []
             for i in range(current_index, next_index):
                 if i in deleted_indices:
