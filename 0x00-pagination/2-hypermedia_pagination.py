@@ -5,6 +5,7 @@ server class
 import csv
 import math
 from typing import Any, Dict, List
+
 index_range = __import__('0-simple_helper_function').index_range
 
 
@@ -52,7 +53,7 @@ class Server:
             'page': page,
             'data': data,
             'next_page': page + 1 if data else None,
-            'prev_page': page - 1 if data else None,
+            'prev_page': page - 1 if page > 1 else None,
             'total_pages': total_pages
         }
         return page_info
