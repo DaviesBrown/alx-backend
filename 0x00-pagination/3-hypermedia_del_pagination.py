@@ -15,6 +15,7 @@ class Server:
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
+        """init"""
         self.__dataset = None
         self.__indexed_dataset = None
 
@@ -31,6 +32,7 @@ class Server:
 
     @property
     def index_data(self):
+        """get indexed data"""
         return self.__indexed_dataset
 
     def indexed_dataset(self) -> Dict[int, List]:
