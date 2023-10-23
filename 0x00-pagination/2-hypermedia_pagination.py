@@ -29,28 +29,42 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """get page from dataset"""
+        '''
+        Gets the results per page of the given page
+        '''
         assert type(page) == int and page > 0
         assert type(page_size) == int and page_size > 0
-        (start, end) = index_range(page, page_size)
-        data = self.datasets
-        if data and data[start: end]:
-            return data[start: end]
-        return []
-    
+        page_list = []
+        results = self.dataset()
+        indexes = index_range(page, page_size)
+        try:
+            for i in range(indexes[0], indexes[1]):
+                page_list.append(results[i])
+        except IndexError:
+            pass
+        return page_list
 
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
-        """get heyper pagination"""
-        assert type(page) == int and page > 0
-        assert type(page_size) == int and page_size > 0
-        data = self.get_page(page, page_size)
-        total_pages = math.ceil(len(self.dataset()) / page_size)  
-        page_info = {
-            'page_size': page_size if data else 0,
-            'page': page,
-            'data': data,
-            'next_page': page + 1 if page < total_pages else None,
-            'prev_page': page - 1 if page > 1 else None,
-            'total_pages': total_pages
-        }
-        return page_info
+        '''
+        Gets the results per page of the given page and returns a dictionary
+        '''
+        hyper_dict = {}
+        page_list = self.get_page(page, page_size)
+        act_page_size = len(page_list)
+        total_pages = math.ceil(len(self.dataset()) / page_size)
+        if page < total_pages:
+            nextp = page + 1
+        else:
+            nextp = None
+
+        if page != 1:
+            prev = page - 1
+        else:
+            prev = None
+        hyper_dict["page_size"] = act_page_size
+        hyper_dict["page"] = page
+        hyper_dict["data"] = page_list
+        hyper_dict["next_page"] = nextp
+        hyper_dict["prev_page"] = prev
+        hyper_dict["total_pages"] = total_pages
+        return hyper_dict
