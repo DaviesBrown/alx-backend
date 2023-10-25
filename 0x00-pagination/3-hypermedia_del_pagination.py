@@ -42,7 +42,7 @@ class Server:
                 i: dataset[i] for i in range(len(dataset))
             }
         return self.__indexed_dataset
-    
+
     def get_hyper_index(self,
                         index: int = None,
                         page_size: int = 10) -> Dict:
@@ -66,8 +66,7 @@ class Server:
             next_index += len(deleted_indices)
 
             for i in range(current_index, next_index):
-                if i not in deleted_indices and \
-                    i in self.__indexed_dataset:
+                if i not in deleted_indices and i in self.__indexed_dataset:
                     data.append(self.__indexed_dataset[i])
 
             return {
