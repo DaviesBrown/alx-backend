@@ -13,7 +13,7 @@ class BaseCaching():
     def __init__(self) -> None:
         """initialize"""
         self.cache_data = {}
-    
+
     def print_cache(self) -> None:
         """ Print the cache
         """
