@@ -18,9 +18,9 @@ class LIFOCache(BaseCaching):
         """ Add an item in the cache
         """
         if key is None:
-            pass
+            return
         if item is None:
-            pass
+            return
         if key in self.cache_data:
             self.cache_data[key] = item
             self.last_item = key
