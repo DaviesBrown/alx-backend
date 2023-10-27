@@ -3,10 +3,11 @@
 fifo caching module
 """
 BaseCaching = __import__('base_caching').BaseCaching
-from base_caching import BaseCaching
+
 
 class FIFOCache(BaseCaching):
     """ FIFO Cache class"""
+
     def __init__(self) -> None:
         """initialize
         """
