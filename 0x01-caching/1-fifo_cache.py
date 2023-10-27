@@ -1,12 +1,12 @@
 #!/usr/bin/python3
 """
-basic cache module
+fifo caching module
 """
 BaseCaching = __import__('base_caching').BaseCaching
 from base_caching import BaseCaching
 
-class BasicCache(BaseCaching):
-    """ Basic Cache class"""
+class FIFOCache(BaseCaching):
+    """ FIFO Cache class"""
     def __init__(self) -> None:
         """initialize
         """
@@ -17,7 +17,13 @@ class BasicCache(BaseCaching):
         """
         if key == None or item == None:
             pass
-        self.cache_data[key] = item
+        if key in self.cache_data or len(self.cache_data) < BaseCaching.MAX_ITEMS:
+            self.cache_data[key] = item
+        else:
+            key_discarded = list(self.cache_data)[0]
+            self.cache_data.pop(key_discarded)
+            print("DISCARD: {}".format(key_discarded))
+            self.cache_data[key] = item
     
     def get(self, key):
         """ Get an item by key
