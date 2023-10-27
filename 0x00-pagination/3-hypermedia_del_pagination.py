@@ -43,9 +43,7 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self,
-                        index: int = None,
-                        page_size: int = 10) -> Dict:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
         if between two queries, certain rows are removed from
         the dataset, the user does not miss items from dataset
