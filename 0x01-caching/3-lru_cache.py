@@ -19,7 +19,7 @@ class LRUCache(BaseCaching):
         """
         if key is None or item is None:
             return
-        if len(self.cache_data) >= BaseCaching.MAX_ITEMS:
+        if len(self.cache_data) >= self.MAX_ITEMS:
             lru_key = self.lru_order.pop(0)
             del self.cache_data[lru_key]
             if lru_key != key:
