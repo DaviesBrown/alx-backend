@@ -29,7 +29,6 @@ class LRUCache(BaseCaching):
                 del self.cache_data[erase]
                 print('DISCARD: {}'.format(erase))
 
-
     def get(self, key):
         """ Get an item by key
         """
