@@ -12,26 +12,29 @@ class LRUCache(BaseCaching):
         """initialize
         """
         super().__init__()
-        self.lru_order = []
+        self.keys = []
 
     def put(self, key, item):
         """ Add an item in the cache
         """
-        if key is None or item is None:
-            return
-        if len(self.cache_data) >= self.MAX_ITEMS:
-            lru_key = self.lru_order.pop(0)
-            del self.cache_data[lru_key]
-            if lru_key != key:
-                print(f"DISCARD: {lru_key}\n")
-        self.cache_data[key] = item
-        self.lru_order.append(key)
+        if (key and item):
+            self.cache_data[key] = item
+            if key in self.keys:
+                self.keys.remove(key)
+                self.keys.append(key)
+            else:
+                self.keys.append(key)
+            if len(self.keys) > self.MAX_ITEMS:
+                erase = self.keys.pop(0)
+                del self.cache_data[erase]
+                print('DISCARD: {}'.format(erase))
+
 
     def get(self, key):
         """ Get an item by key
         """
         if key is None or key not in self.cache_data:
             return None
-        self.lru_order.remove(key)
-        self.lru_order.append(key)
+        self.keys.remove(key)
+        self.keys.append(key)
         return self.cache_data[key]
