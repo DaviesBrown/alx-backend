@@ -5,6 +5,7 @@ flask app
 from typing import Dict, Union
 from flask import Flask, g, render_template, request
 from flask_babel import Babel
+import pytz
 
 
 users = {
@@ -22,7 +23,7 @@ class Config(object):
     """ config class"""
     LANGUAGES = ["en", "fr"]
     BABEL_DEFAULT_LOCALE = babel.default_locale
-    BABEL_DEFAULT_TIMEZONE = babel.default_timezone.zone
+    BABEL_DEFAULT_TIMEZONE = babel.default_timezone
 
 
 flask_app.config.from_object(Config)
@@ -55,7 +56,7 @@ def inject_user():
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """ get locale"""
     lang = request.args.get("locale")
     if lang and lang in flask_app.config["LANGUAGES"]:
@@ -65,10 +66,32 @@ def get_locale():
     return request.accept_languages.best_match(flask_app.config['LANGUAGES'])
 
 
+babel.t
+def get_timezone():
+    """get timezone"""
+    print(request.args)
+    tz = request.args.get("timezone")
+    if tz:
+        try:
+            tz = pytz.timezone(tz)
+            print(tz.zone)
+            return tz.zone
+        except pytz.exceptions.UnknownTimeZoneError:
+            return 
+    """ user = getattr(g, 'user', None)
+    print(user)
+    if user is not None:
+        try:
+            user = pytz.timezone(user)
+            return user.timezone
+        except pytz.exceptions.UnknownTimeZoneError:
+            return """
+
+
 @flask_app.route("/", strict_slashes=False)
 def index():
     """ index route"""
-    return render_template("6-index.html")
+    return render_template("7-index.html")
 
 
 if __name__ == "__main__":

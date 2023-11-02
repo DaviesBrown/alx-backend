@@ -26,6 +26,7 @@ class Config(object):
 
 
 flask_app.config.from_object(Config)
+print(flask_app.config)
 
 
 def get_user() -> Union[Dict, None]:
@@ -44,6 +45,7 @@ def get_user() -> Union[Dict, None]:
 def before_request():
     """before request"""
     g.user = get_user()
+    print(g.user)
 
 
 @babel.localeselector

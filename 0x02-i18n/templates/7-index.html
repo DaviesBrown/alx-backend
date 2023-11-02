@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="home_title">{{ _("Welcome to Holberton") }}</title>
+</head>
+<body>
+    <h1 id="home_header">{{ _("Hello world") }}</h1>
+    {% if g.user %}
+        <p id="logged_in_as">{{ _("You are logged in as %(username)s.", username=g.user.name) }}</p>
+    {% else %}
+        <p id="not_logged_in">{{ _("You are not logged in.") }}</p>
+    {% endif %}
+</body>
+</html>

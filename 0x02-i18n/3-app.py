@@ -20,13 +20,6 @@ class Config(object):
 flask_app.config.from_object(Config)
 
 
-def get_timezone():
-    """get timezone"""
-    user = getattr(g, 'user', None)
-    if user is not None:
-        return user.timezone
-
-
 @babel.localeselector
 def get_locale():
     """ get locale"""

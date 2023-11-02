@@ -19,14 +19,6 @@ class Config(object):
 
 
 flask_app.config.from_object(Config)
-print(flask_app.config)
-
-
-def get_timezone():
-    """get timezone"""
-    user = getattr(g, 'user', None)
-    if user is not None:
-        return user.timezone
 
 
 @babel.localeselector
@@ -38,7 +30,7 @@ def get_locale():
 @flask_app.route("/", strict_slashes=False)
 def index():
     """ index route"""
-    return render_template("0-index.html")
+    return render_template("2-index.html")
 
 
 if __name__ == "__main__":
