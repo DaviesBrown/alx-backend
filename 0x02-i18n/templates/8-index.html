@@ -10,7 +10,13 @@
   <body>
         <!-- HEADER -->
 	<header>
-	  <h1>{{ _('home_header') }}</h1>
+    <h1>{{ _('home_header') }}</h1>
+    {% if g.user %}
+    <p>{{ _('logged_in_as', username=g.user['name']) }}</p>
+    {% else %}
+    <p>{{ _('not_logged_in') }}</p>
+    {% endif %}
 	</header>
+    <p>{{ _('current_time_is', current_time=time) }}</p>
   </body>
 </html>

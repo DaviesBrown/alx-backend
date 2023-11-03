@@ -2,6 +2,7 @@
 """Module that uses user locale"""
 
 
+from datetime import datetime
 from flask import Flask, request, render_template, g
 from flask_babel import Babel
 from os import getenv
@@ -35,7 +36,7 @@ def index() -> str:
     """GET method for '/' route
     Return: 6-index.html
     """
-    return render_template('7-index.html')
+    return render_template('8-index.html', time=datetime.now(pytz.timezone(get_timezone())))
 
 
 @babel.localeselector
@@ -52,7 +53,7 @@ def get_locale() -> str:
         return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-""" @babel.timezoneselector
+@babel.timezoneselector
 def get_timezone() -> str:
     def valid_timezone(tz: str) -> str:
         try:
@@ -61,11 +62,12 @@ def get_timezone() -> str:
         except pytz.exceptions.UnknownTimeZoneError:
             return
     tz = request.args.get("timezone", None)
-    g_tz = valid_timezone(g.user.get('timezone'))
     if tz:
         return valid_timezone(tz)
-    elif g.user and g_tz:
-        return g.user.get('timezone') """
+    elif g.user and valid_timezone(g.user.get('timezone')):
+        return g.user.get('timezone')
+    else:
+        return app.config["BABEL_DEFAULT_TIMEZONE"]
 
 
 def get_user() -> Union[dict, None]:
